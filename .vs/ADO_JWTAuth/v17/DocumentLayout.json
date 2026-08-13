@@ -1,0 +1,95 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\HP\\Desktop\\ADO_JWTAuth\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FCFF589B-006F-4F52-9AF9-9851E0D04B4B}|ADO_JWTAuth\\ADO_JWTAuth.csproj|c:\\users\\hp\\desktop\\ado_jwtauth\\ado_jwtauth\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCFF589B-006F-4F52-9AF9-9851E0D04B4B}|ADO_JWTAuth\\ADO_JWTAuth.csproj|solutionrelative:ado_jwtauth\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCFF589B-006F-4F52-9AF9-9851E0D04B4B}|ADO_JWTAuth\\ADO_JWTAuth.csproj|c:\\users\\hp\\desktop\\ado_jwtauth\\ado_jwtauth\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCFF589B-006F-4F52-9AF9-9851E0D04B4B}|ADO_JWTAuth\\ADO_JWTAuth.csproj|solutionrelative:ado_jwtauth\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCFF589B-006F-4F52-9AF9-9851E0D04B4B}|ADO_JWTAuth\\ADO_JWTAuth.csproj|c:\\users\\hp\\desktop\\ado_jwtauth\\ado_jwtauth\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCFF589B-006F-4F52-9AF9-9851E0D04B4B}|ADO_JWTAuth\\ADO_JWTAuth.csproj|solutionrelative:ado_jwtauth\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{7f40df72-066b-4810-a08b-c0fbed76c948}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\HP\\Desktop\\ADO_JWTAuth\\ADO_JWTAuth\\Repositories\\UserRepository.cs",
+              "RelativeDocumentMoniker": "ADO_JWTAuth\\Repositories\\UserRepository.cs",
+              "ToolTip": "C:\\Users\\HP\\Desktop\\ADO_JWTAuth\\ADO_JWTAuth\\Repositories\\UserRepository.cs",
+              "RelativeToolTip": "ADO_JWTAuth\\Repositories\\UserRepository.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAiwHEAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-12T06:37:36.457Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\HP\\Desktop\\ADO_JWTAuth\\ADO_JWTAuth\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "ADO_JWTAuth\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\HP\\Desktop\\ADO_JWTAuth\\ADO_JWTAuth\\Services\\UserService.cs",
+              "RelativeToolTip": "ADO_JWTAuth\\Services\\UserService.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAYwHUAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-12T06:54:01.172Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\HP\\Desktop\\ADO_JWTAuth\\ADO_JWTAuth\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "ADO_JWTAuth\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\HP\\Desktop\\ADO_JWTAuth\\ADO_JWTAuth\\Controllers\\UserController.cs",
+              "RelativeToolTip": "ADO_JWTAuth\\Controllers\\UserController.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAnwDoAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-12T05:56:33.503Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

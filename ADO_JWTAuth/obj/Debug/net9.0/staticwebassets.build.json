@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "6bT2qxjxjuX0dELe0h8Gty/tx4BPWaI1aJL5gaHxYk8=",
+  "Source": "ADO_JWTAuth",
+  "BasePath": "_content/ADO_JWTAuth",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
