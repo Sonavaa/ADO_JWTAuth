@@ -2,8 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\ADO_JWTAuth",
-    "\\ADO_JWTAuth\\Repositories"
+    "\\ADO_JWTAuth\\Controllers",
+    "\\ADO_JWTAuth\\DTOs",
+    "\\ADO_JWTAuth\\IServices",
+    "\\ADO_JWTAuth\\Repositories",
+    "\\ADO_JWTAuth\\Services"
   ],
-  "SelectedNode": "\\ADO_JWTAuth\\Repositories\\UserRepository.cs",
+  "SelectedNode": "\\ADO_JWTAuth.sln",
   "PreviewInSolutionExplorer": false
 }

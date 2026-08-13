@@ -1,6 +1,5 @@
 ﻿using ADO_JWTAuth.DTOs;
 using ADO_JWTAuth.IServices;
-using ADO_JWTAuth.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ADO_JWTAuth.Controllers
@@ -42,6 +41,20 @@ namespace ADO_JWTAuth.Controllers
 
             return Ok(user);
         }
+
+        [HttpPut("{Id}")]
+        public async Task<IActionResult> UpdateUser( int Id, UpdateUserDTO updateUserDTO)
+        {
+            var updatedUser = await _userService.UpdateUserAsync(updateUserDTO, Id);
+
+            return Ok(new
+            {
+                message = "User updated successfully!",
+                user = updatedUser
+            });
+        }
+
+        //[FromBody]
 
         [HttpDelete("{Id}")]
         public async Task<ActionResult> DeleteUserById(int Id)

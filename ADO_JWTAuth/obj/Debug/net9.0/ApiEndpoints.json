@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "ADO_JWTAuth.Controllers.RoleController",
+    "Method": "GetRoleById",
+    "RelativePath": "api/Role/{Id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ADO_JWTAuth.Controllers.UserController",
     "Method": "CreateUser",
     "RelativePath": "api/User",
@@ -46,6 +62,27 @@
       {
         "Name": "Id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ADO_JWTAuth.Controllers.UserController",
+    "Method": "UpdateUser",
+    "RelativePath": "api/User/{Id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateUserDTO",
+        "Type": "ADO_JWTAuth.DTOs.UpdateUserDTO",
         "IsRequired": true
       }
     ],

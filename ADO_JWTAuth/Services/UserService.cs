@@ -11,10 +11,12 @@ namespace ADO_JWTAuth.Services
     {
 
         private readonly IUserRepository _repository;
+        private readonly IRoleRepository _roleRepository;
 
-        public UserService(IUserRepository repository)
+        public UserService(IUserRepository repository, IRoleRepository roleRepository)
         {
             _repository = repository;
+            _roleRepository = roleRepository;
         }
 
         public async Task<UserDTO> CreateUserAsync(UserDTO userDTO)
@@ -108,9 +110,33 @@ namespace ADO_JWTAuth.Services
             return userDTOById; 
         }
 
-        public async Task<bool> UpdateUserAsync(UserDTO updateUserDTO)
+        public async Task<UserDTO> UpdateUserAsync(UpdateUserDTO updateUserDTO, int Id)
         {
-            throw new NotImplementedException();
+            if (Id <= 0)
+                throw new ArgumentException("Invalid user Id.");
+
+            if (updateUserDTO == null)
+                throw new ArgumentNullException(nameof(updateUserDTO));
+
+            var existUser = await _repository.GetUserByIdAsync(Id);
+
+            if (existUser == null)
+                throw new KeyNotFoundException("User not found.");
+
+            var role = await _roleRepository.GetRoleByIdAsync(existUser.RoleId);
+
+            if (role == null)
+                throw new KeyNotFoundException("Role not found.");
+
+            var updatedUser = await _repository.UpdateUserAsync(updateUserDTO, Id);
+
+            return new UserDTO
+            {
+                Username = updatedUser.Username,
+                Email = updatedUser.Email,
+                RoleId = updatedUser.RoleId
+            };
+
         }
 
         public async Task<bool> DeleteUserAsync(int Id)

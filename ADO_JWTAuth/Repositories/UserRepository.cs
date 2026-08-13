@@ -19,7 +19,7 @@ namespace ADO_JWTAuth.Repositories
             using var command = connection.CreateCommand();
 
             command.CommandText = @"INSERT INTO Users (Username, Email, Password, RoleId)
-                                          VALUES (@Username, @Email, @Password, @RoleId";
+                                          VALUES (@Username, @Email, @Password, @RoleId)";
 
             command.Parameters.AddWithValue("@Username", userDTO.Username);
             command.Parameters.AddWithValue("@Email", userDTO.Email);
@@ -34,6 +34,7 @@ namespace ADO_JWTAuth.Repositories
                 Email = userDTO.Email,
                 Password = userDTO.Password,
                 RoleId = userDTO.RoleId,
+                IsDeleted = false
             };
         }
         public async Task<List<User>> GetAllUsersAsync()
@@ -46,7 +47,7 @@ namespace ADO_JWTAuth.Repositories
             command.CommandText = @"SELECT [Id]
                                            ,[Email]
                                            ,[Username]
-                                           ,[RoleId] FROM Users";
+                                           ,[RoleId] FROM Users WHERE IsDeleted = 0";
 
             using var reader = await command.ExecuteReaderAsync();
             
@@ -78,7 +79,7 @@ namespace ADO_JWTAuth.Repositories
                                            ,[Email]
                                            ,[Username]
                                            ,[RoleId] FROM Users 
-                                            WHERE Id=@Id";
+                                            WHERE Id=@Id AND IsDeleted = 0";
 
             command.Parameters.AddWithValue("@Id", Id);
 
@@ -97,9 +98,42 @@ namespace ADO_JWTAuth.Repositories
             return null;
         }
 
-        public Task<bool> UpdateUserAsync(UserDTO updateUserDTO)
+        public async Task<User> UpdateUserAsync(UpdateUserDTO updateUserDTO, int Id)
         {
-            throw new NotImplementedException();
+            var existingUser = await GetUserByIdAsync(Id);
+
+            if (existingUser == null)
+            { 
+                return null;
+            }
+                
+
+            using var connection = CreateConnection();
+            await connection.OpenAsync();
+
+            using var command = connection.CreateCommand();
+
+            command.CommandText = @"UPDATE Users
+                                           SET Email = @Email,
+                                           Username = @Username,
+                                           Password = @Password,
+                                           RoleId = @RoleId
+                                           WHERE Id = @Id AND IsDeleted = 0";
+
+            command.Parameters.AddWithValue("@Email", updateUserDTO.Email);
+            command.Parameters.AddWithValue("@Username", updateUserDTO.Username);
+            command.Parameters.AddWithValue("@Password", updateUserDTO.Password);
+            command.Parameters.AddWithValue("@RoleId", updateUserDTO.RoleId);
+            command.Parameters.AddWithValue("@Id", Id);
+
+            await command.ExecuteNonQueryAsync();
+
+            existingUser.Email = updateUserDTO.Email;
+            existingUser.Username = updateUserDTO.Username;
+            existingUser.Password = updateUserDTO.Password;
+            existingUser.RoleId = (int)updateUserDTO.RoleId;
+
+            return existingUser;
         }
       
         public async Task<bool> DeleteUserAsync(int Id)
@@ -119,7 +153,5 @@ namespace ADO_JWTAuth.Repositories
 
             return affectedRows > 0;
         }
-
-
     }
 }

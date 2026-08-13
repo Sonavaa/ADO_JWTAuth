@@ -167,3 +167,6 @@ C:\Users\HP\Desktop\ADO_JWTAuth\ADO_JWTAuth\obj\Debug\net9.0\ref\ADO_JWTAuth.dll
 C:\Users\HP\Desktop\ADO_JWTAuth\ADO_JWTAuth\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\HP\Desktop\ADO_JWTAuth\ADO_JWTAuth\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\HP\Desktop\ADO_JWTAuth\ADO_JWTAuth\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\HP\Desktop\ADO_JWTAuth\ADO_JWTAuth\obj\Debug\net9.0\ADO_JWTAuth.sourcelink.json
+C:\Users\HP\Desktop\ADO_JWTAuth\ADO_JWTAuth\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\HP\Desktop\ADO_JWTAuth\ADO_JWTAuth\bin\Debug\net9.0\Microsoft.Bcl.Cryptography.dll
