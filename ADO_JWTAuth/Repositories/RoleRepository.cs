@@ -3,7 +3,7 @@ using ADO_JWTAuth.Models;
 
 namespace ADO_JWTAuth.Repositories
 {
-    public class RoleRepository : BaseRepository, IRoleRepository
+    public class RoleRepository : DbConnection, IRoleRepository
     {
         public RoleRepository(IConfiguration connectionString) : base(connectionString)
         {

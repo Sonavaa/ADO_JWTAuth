@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ADO_JWTAuth.Repositories
 {
-    public class UserRepository : BaseRepository, IUserRepository
+    public class UserRepository : DbConnection, IUserRepository
     {
         public UserRepository(IConfiguration connectionString) : base(connectionString)
         {
@@ -152,6 +152,58 @@ namespace ADO_JWTAuth.Repositories
             int affectedRows = await command.ExecuteNonQueryAsync();
 
             return affectedRows > 0;
+        }
+
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            using var connection = CreateConnection();
+            await connection.OpenAsync();
+
+            using var command = connection.CreateCommand();
+
+            command.CommandText = @"SELECT [Id]
+                                           ,[Email]
+                                           ,[Username] 
+                                           ,[Password] FROM Users 
+                                            WHERE username=@Username AND IsDeleted = 0";
+
+            command.Parameters.AddWithValue("@Username", username);
+
+            using var reader = await command.ExecuteReaderAsync();
+
+            if (await reader.ReadAsync())
+            {
+                return new User
+                {
+                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                    Email = reader.GetString(reader.GetOrdinal("Email")),
+                    Username = reader.GetString(reader.GetOrdinal("Username")),
+                    Password = reader.GetString(reader.GetOrdinal("Password"))
+                };
+
+            }
+            return null;
+        }
+
+        public async Task SaveRefreshTokenAsync(int userId, string refreshToken,
+                                                    DateTime refreshTokenExpiry)
+        {
+            using var connection = CreateConnection();
+
+            await connection.OpenAsync();
+
+            using var command = connection.CreateCommand();
+
+            command.CommandText = @"UPDATE Users
+                                    SET RefreshToken = @RefreshToken,
+                                        RefreshTokenExpiryTime = @RefreshTokenExpiryTime
+                                        WHERE Id = @Id";
+
+            command.Parameters.AddWithValue("@RefreshToken", refreshToken);
+            command.Parameters.AddWithValue("@RefreshTokenExpiryTime", refreshTokenExpiry);
+            command.Parameters.AddWithValue("@Id", userId);
+
+            await command.ExecuteNonQueryAsync();
         }
     }
 }

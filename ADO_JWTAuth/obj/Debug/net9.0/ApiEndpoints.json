@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "ADO_JWTAuth.Controllers.AuthentificationController",
+    "Method": "Login",
+    "RelativePath": "api/Authentification",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDTO",
+        "Type": "ADO_JWTAuth.DTOs.UserLoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ADO_JWTAuth.Controllers.RoleController",
     "Method": "GetRoleById",
     "RelativePath": "api/Role/{Id}",
@@ -18,7 +34,7 @@
   {
     "ContainingType": "ADO_JWTAuth.Controllers.UserController",
     "Method": "CreateUser",
-    "RelativePath": "api/User",
+    "RelativePath": "api/User/create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -33,8 +49,56 @@
   },
   {
     "ContainingType": "ADO_JWTAuth.Controllers.UserController",
+    "Method": "DeleteUserById",
+    "RelativePath": "api/User/delete{Id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ADO_JWTAuth.Controllers.UserController",
+    "Method": "GetUserByUsername",
+    "RelativePath": "api/User/get-by-username/{username}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ADO_JWTAuth.Controllers.UserController",
+    "Method": "GetUserById",
+    "RelativePath": "api/User/get/{Id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ADO_JWTAuth.Controllers.UserController",
     "Method": "GetAllUsers",
-    "RelativePath": "api/User",
+    "RelativePath": "api/User/list",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -53,52 +117,15 @@
   },
   {
     "ContainingType": "ADO_JWTAuth.Controllers.UserController",
-    "Method": "GetUserById",
-    "RelativePath": "api/User/{Id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "Id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ADO_JWTAuth.Controllers.UserController",
     "Method": "UpdateUser",
-    "RelativePath": "api/User/{Id}",
+    "RelativePath": "api/User/update",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
         "Name": "updateUserDTO",
         "Type": "ADO_JWTAuth.DTOs.UpdateUserDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ADO_JWTAuth.Controllers.UserController",
-    "Method": "DeleteUserById",
-    "RelativePath": "api/User/{Id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "Id",
-        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

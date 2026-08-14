@@ -48,9 +48,7 @@ namespace ADO_JWTAuth.Services
 
             userDTO.Password = user.Password;
 
-            user = await _repository.CreateUserAsync(userDTO);
-
-            var newUserDTOWithHashedPassword = new UserDTO
+            var newUserDTO = new UserDTO
             {
                 Username = user.Username,
                 Email = user.Email,
@@ -58,12 +56,13 @@ namespace ADO_JWTAuth.Services
                 RoleId = user.RoleId
             };
 
+            var createdUser = await _repository.CreateUserAsync(newUserDTO);
+
             return new UserDTO
             {
-                Username = newUserDTOWithHashedPassword.Username,
-                Email = newUserDTOWithHashedPassword.Email,
-                Password = newUserDTOWithHashedPassword.Password,
-                RoleId = newUserDTOWithHashedPassword.RoleId,
+                Username = newUserDTO.Username,
+                Email = newUserDTO.Email,
+                RoleId = newUserDTO.RoleId,
             };
         }
 
@@ -110,8 +109,10 @@ namespace ADO_JWTAuth.Services
             return userDTOById; 
         }
 
-        public async Task<UserDTO> UpdateUserAsync(UpdateUserDTO updateUserDTO, int Id)
-        {
+        public async Task<UserDTO> UpdateUserAsync(UpdateUserDTO updateUserDTO)
+        { 
+            var Id = updateUserDTO.Id;
+
             if (Id <= 0)
                 throw new ArgumentException("Invalid user Id.");
 
@@ -123,7 +124,7 @@ namespace ADO_JWTAuth.Services
             if (existUser == null)
                 throw new KeyNotFoundException("User not found.");
 
-            var role = await _roleRepository.GetRoleByIdAsync(existUser.RoleId);
+            var role = await _roleRepository.GetRoleByIdAsync((int)updateUserDTO.RoleId);
 
             if (role == null)
                 throw new KeyNotFoundException("Role not found.");
@@ -141,10 +142,39 @@ namespace ADO_JWTAuth.Services
 
         public async Task<bool> DeleteUserAsync(int Id)
         {
-            if (Id == 0)
+            if (Id <= 0)
                 return false;
 
             return await _repository.DeleteUserAsync(Id);
+        }
+
+
+        // Niyə UserLoginDTO tipinden olmaz?
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            var user = await _repository.GetUserByUsernameAsync(username);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var userDTOByusername = new User();
+
+            userDTOByusername.Id = user.Id;
+            userDTOByusername.Username = user.Username;
+            userDTOByusername.Password = user.Password;
+
+            return userDTOByusername;
+        }
+
+        public async Task SaveRefreshTokenAsync(int userId, string refreshToken,
+                                                            DateTime refreshTokenExpiry)
+        {
+            await _repository.SaveRefreshTokenAsync(
+                userId,
+                refreshToken,
+                refreshTokenExpiry);
         }
     }
 }

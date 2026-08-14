@@ -1,5 +1,6 @@
 ﻿using ADO_JWTAuth.DTOs;
 using ADO_JWTAuth.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ADO_JWTAuth.Controllers
@@ -15,7 +16,7 @@ namespace ADO_JWTAuth.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateUser(UserDTO userDTO)
         {
             var user = await _userService.CreateUserAsync(userDTO);
@@ -23,7 +24,8 @@ namespace ADO_JWTAuth.Controllers
             return Ok(new { message = "User Created Successfully!", user });
         }
 
-        [HttpGet]
+        [Authorize]
+        [HttpGet("list")]
         public async Task<ActionResult<List<UserDTO>>> GetAllUsers()
         {
             var users = await _userService.GetAllUsersAsync();
@@ -31,7 +33,8 @@ namespace ADO_JWTAuth.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{Id}")]
+        //[HttpGet("get{Id:int}")]
+        [HttpGet("get/{Id:int}")]
         public async Task<ActionResult> GetUserById(int Id)
         {
             var user = await _userService.GetUserByIdAsync(Id);
@@ -42,10 +45,10 @@ namespace ADO_JWTAuth.Controllers
             return Ok(user);
         }
 
-        [HttpPut("{Id}")]
-        public async Task<IActionResult> UpdateUser( int Id, UpdateUserDTO updateUserDTO)
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO updateUserDTO)
         {
-            var updatedUser = await _userService.UpdateUserAsync(updateUserDTO, Id);
+            var updatedUser = await _userService.UpdateUserAsync(updateUserDTO);
 
             return Ok(new
             {
@@ -56,7 +59,7 @@ namespace ADO_JWTAuth.Controllers
 
         //[FromBody]
 
-        [HttpDelete("{Id}")]
+        [HttpDelete("delete{Id}")]
         public async Task<ActionResult> DeleteUserById(int Id)
         {
             var user = await _userService.DeleteUserAsync(Id);
@@ -65,6 +68,17 @@ namespace ADO_JWTAuth.Controllers
                 return NotFound();
 
             return Ok(new { message = "User Deleted Successfully!" });
+        }
+
+        [HttpGet("get-by-username/{username}")]
+        public async Task<ActionResult> GetUserByUsername(string username)
+        {
+            var user = await _userService.GetUserByUsernameAsync(username);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
         }
     }
 }

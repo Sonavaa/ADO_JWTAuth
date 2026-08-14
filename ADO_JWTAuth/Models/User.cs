@@ -18,4 +18,8 @@ public partial class User
     public bool IsDeleted { get; set; }
 
     public virtual Role Role { get; set; } = null!;
+
+    public string? RefreshToken { get; set; }
+
+    public DateTime? RefreshTokenExpiryTime { get; set; }
 }

@@ -8,7 +8,9 @@ namespace ADO_JWTAuth.IRepositories
         Task<User> CreateUserAsync(UserDTO createUserDTO);
         Task<List<User>> GetAllUsersAsync();
         Task<User?> GetUserByIdAsync(int Id);
+        Task<User?> GetUserByUsernameAsync(string username);
         Task<User> UpdateUserAsync(UpdateUserDTO updateUserDTO, int Id);
         Task<bool> DeleteUserAsync(int Id);
+        Task SaveRefreshTokenAsync(int userId,string refreshToken, DateTime refreshTokenExpiry);
     }
 }
