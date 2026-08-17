@@ -1,7 +1,7 @@
 ﻿
 namespace ADO_JWTAuth.DTOs
 {
-    public class UserDTO
+    public class GetUserDTO
     {
         public int RoleId { get; set; }
 
@@ -9,6 +9,5 @@ namespace ADO_JWTAuth.DTOs
 
         public string Username { get; set; } = null!;
 
-        public string Password { get; set; } = null!;
     }
 }

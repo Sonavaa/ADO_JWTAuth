@@ -5,6 +5,7 @@
     "\\ADO_JWTAuth\\Controllers",
     "\\ADO_JWTAuth\\DTOs",
     "\\ADO_JWTAuth\\IServices",
+    "\\ADO_JWTAuth\\Profiles",
     "\\ADO_JWTAuth\\Repositories",
     "\\ADO_JWTAuth\\Services"
   ],

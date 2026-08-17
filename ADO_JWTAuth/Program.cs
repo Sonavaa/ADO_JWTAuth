@@ -1,9 +1,15 @@
 using ADO_JWTAuth.Configuration;
+using ADO_JWTAuth.DTOs;
 using ADO_JWTAuth.IRepositories;
 using ADO_JWTAuth.IServices;
+using ADO_JWTAuth.Models;
+using ADO_JWTAuth.Profiles;
 using ADO_JWTAuth.Repositories;
 using ADO_JWTAuth.Services;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -53,6 +59,14 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<JWTConfigService>();
 builder.Services.AddScoped<IUserAuthentificationService, UserAuthentificationService>();
+builder.Services.AddScoped<PasswordHasher<User>>();
+builder.Services.AddAutoMapper(x =>
+{
+    x.AddProfile<UserProfile>();
+});
+builder.Services.AddValidatorsFromAssemblyContaining<UserDTO>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateUserDTO>();
+
 
 builder.Services.AddAuthentication(options =>
 {

@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using ADO_JWTAuth.IServices;
 using ADO_JWTAuth.Models;
 using Microsoft.AspNetCore.Identity;
-using System.Security.Cryptography;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ADO_JWTAuth.Services
 {
@@ -60,6 +60,33 @@ namespace ADO_JWTAuth.Services
                 user.Id,
                 refreshToken,
                 refreshTokenExpiry
+            );
+
+            return new AuthResponseDTO
+            {
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
+            };
+        }
+
+        public async Task<AuthResponseDTO?> RefreshTokenAsync(string refreshToken)
+        {
+            var user = await _userService.GetUserByRefreshTokenAsync(refreshToken);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            if (user.RefreshTokenExpiryTime == null ||
+                user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            {
+                return null;
+            }
+
+            var accessToken = _jwtConfigService.GenerateToken(
+                user.Id.ToString(),
+                user.Username
             );
 
             return new AuthResponseDTO

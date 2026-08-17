@@ -12,5 +12,6 @@ namespace ADO_JWTAuth.IRepositories
         Task<User> UpdateUserAsync(UpdateUserDTO updateUserDTO, int Id);
         Task<bool> DeleteUserAsync(int Id);
         Task SaveRefreshTokenAsync(int userId,string refreshToken, DateTime refreshTokenExpiry);
+        Task<User?> GetUserByRefreshTokenAsync(string refreshToken);
     }
 }

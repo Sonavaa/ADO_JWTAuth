@@ -6,11 +6,11 @@ namespace ADO_JWTAuth.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthentificationController : ControllerBase
+    public class LoginController : ControllerBase
     {
         private readonly IUserAuthentificationService _userAuthentificationService;
 
-        public AuthentificationController(IUserAuthentificationService userAuthentificationService)
+        public LoginController(IUserAuthentificationService userAuthentificationService)
         {
                 _userAuthentificationService = userAuthentificationService;
         }
@@ -32,6 +32,19 @@ namespace ADO_JWTAuth.Controllers
             return Ok(new {
                 message = "Login successful.",
                 token = token });
+        }
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> RefreshToken(RefreshTokenDTO dto)
+        {
+            var result = await _userAuthentificationService.RefreshTokenAsync(dto.RefreshToken);
+
+            if (result == null)
+            {
+                return Unauthorized("Invalid or expired refresh token.");
+            }
+
+            return Ok(result);
         }
     }
 }

@@ -5,12 +5,13 @@ namespace ADO_JWTAuth.IServices
 {
     public interface IUserService
     {
-        Task<UserDTO> CreateUserAsync(UserDTO createUserDTO);
-        Task<List<UserDTO>> GetAllUsersAsync();
-        Task<UserDTO?> GetUserByIdAsync(int Id);
+        Task<GetUserDTO> CreateUserAsync(UserDTO createUserDTO);
+        Task<List<GetUserDTO>> GetAllUsersAsync();
+        Task<GetUserDTO?> GetUserByIdAsync(int Id);
         Task<User?> GetUserByUsernameAsync(string username);
-        Task<UserDTO> UpdateUserAsync(UpdateUserDTO updateUserDTO);
+        Task<UpdateUserDTO> UpdateUserAsync(UpdateUserDTO updateUserDTO, int Id);
         Task<bool> DeleteUserAsync(int Id);
         Task SaveRefreshTokenAsync(int userId, string refreshToken, DateTime refreshTokenExpiry);
+        Task<User?> GetUserByRefreshTokenAsync(string refreshToken);
     }
 }

@@ -16,10 +16,11 @@ namespace ADO_JWTAuth.Repositories
             using var connection = CreateConnection();
             await connection.OpenAsync();
 
-            using var command = connection.CreateCommand();
 
-            command.CommandText = @"INSERT INTO Users (Username, Email, Password, RoleId)
+            var sqlCommandQuery = @"INSERT INTO Users (Username, Email, Password, RoleId)
                                           VALUES (@Username, @Email, @Password, @RoleId)";
+
+            using var command = CreateCommand(sqlCommandQuery, connection);
 
             command.Parameters.AddWithValue("@Username", userDTO.Username);
             command.Parameters.AddWithValue("@Email", userDTO.Email);
@@ -39,15 +40,15 @@ namespace ADO_JWTAuth.Repositories
         }
         public async Task<List<User>> GetAllUsersAsync()
         {
-            using var connections = CreateConnection();
-            await connections.OpenAsync();
+            using var connection = CreateConnection();
+            await connection.OpenAsync();
 
-            using var command = connections.CreateCommand();
-
-            command.CommandText = @"SELECT [Id]
+            var sqlCommandQuery = @"SELECT [Id]
                                            ,[Email]
                                            ,[Username]
                                            ,[RoleId] FROM Users WHERE IsDeleted = 0";
+
+            using var command = CreateCommand(sqlCommandQuery, connection);
 
             using var reader = await command.ExecuteReaderAsync();
             
@@ -73,13 +74,13 @@ namespace ADO_JWTAuth.Repositories
           using var connection = CreateConnection();
             await connection.OpenAsync();
 
-          using var command = connection.CreateCommand();
-
-            command.CommandText = @"SELECT [Id]
+            var sqlCommandQuery = @"SELECT [Id]
                                            ,[Email]
                                            ,[Username]
                                            ,[RoleId] FROM Users 
                                             WHERE Id=@Id AND IsDeleted = 0";
+
+            using var command = CreateCommand(sqlCommandQuery, connection);
 
             command.Parameters.AddWithValue("@Id", Id);
 
@@ -111,14 +112,14 @@ namespace ADO_JWTAuth.Repositories
             using var connection = CreateConnection();
             await connection.OpenAsync();
 
-            using var command = connection.CreateCommand();
-
-            command.CommandText = @"UPDATE Users
+            var sqlCommandQuery = @"UPDATE Users
                                            SET Email = @Email,
                                            Username = @Username,
                                            Password = @Password,
                                            RoleId = @RoleId
                                            WHERE Id = @Id AND IsDeleted = 0";
+
+            using var command = CreateCommand(sqlCommandQuery, connection);
 
             command.Parameters.AddWithValue("@Email", updateUserDTO.Email);
             command.Parameters.AddWithValue("@Username", updateUserDTO.Username);
@@ -131,7 +132,7 @@ namespace ADO_JWTAuth.Repositories
             existingUser.Email = updateUserDTO.Email;
             existingUser.Username = updateUserDTO.Username;
             existingUser.Password = updateUserDTO.Password;
-            existingUser.RoleId = (int)updateUserDTO.RoleId;
+            existingUser.RoleId = updateUserDTO.RoleId;
 
             return existingUser;
         }
@@ -141,11 +142,11 @@ namespace ADO_JWTAuth.Repositories
             using var connection = CreateConnection();
             await connection.OpenAsync();
 
-            using var command = connection.CreateCommand();
-
-            command.CommandText = @"UPDATE Users
+            var sqlCommandQuery = @"UPDATE Users
                                     SET IsDeleted = 1
-                                    WHERE Id = @Id";
+                                    WHERE Id = @Id AND IsDeleted = 0";
+
+            using var command = CreateCommand(sqlCommandQuery, connection);
 
             command.Parameters.AddWithValue("@Id", Id);
 
@@ -159,13 +160,13 @@ namespace ADO_JWTAuth.Repositories
             using var connection = CreateConnection();
             await connection.OpenAsync();
 
-            using var command = connection.CreateCommand();
-
-            command.CommandText = @"SELECT [Id]
+            var sqlCommandQuery = @"SELECT [Id]
                                            ,[Email]
                                            ,[Username] 
                                            ,[Password] FROM Users 
                                             WHERE username=@Username AND IsDeleted = 0";
+
+            using var command = CreateCommand(sqlCommandQuery, connection);
 
             command.Parameters.AddWithValue("@Username", username);
 
@@ -192,18 +193,53 @@ namespace ADO_JWTAuth.Repositories
 
             await connection.OpenAsync();
 
-            using var command = connection.CreateCommand();
-
-            command.CommandText = @"UPDATE Users
+            var sqlCommandQuery = @"UPDATE Users
                                     SET RefreshToken = @RefreshToken,
                                         RefreshTokenExpiryTime = @RefreshTokenExpiryTime
                                         WHERE Id = @Id";
+
+            using var command = CreateCommand(sqlCommandQuery, connection);
 
             command.Parameters.AddWithValue("@RefreshToken", refreshToken);
             command.Parameters.AddWithValue("@RefreshTokenExpiryTime", refreshTokenExpiry);
             command.Parameters.AddWithValue("@Id", userId);
 
             await command.ExecuteNonQueryAsync();
+        }
+
+        public async Task<User?> GetUserByRefreshTokenAsync(string refreshToken)
+        {
+            using var connection = CreateConnection();
+            await connection.OpenAsync();
+
+            var sqlCommandQuery = @"SELECT Id, Username, Email, Password, RoleId,
+                                   RefreshToken, RefreshTokenExpiryTime
+                            FROM Users
+                            WHERE RefreshToken = @RefreshToken
+                              AND IsDeleted = 0";
+
+            using var command = CreateCommand(sqlCommandQuery, connection);
+
+            command.Parameters.AddWithValue("@RefreshToken", refreshToken);
+
+            using var reader = await command.ExecuteReaderAsync();
+
+            if (await reader.ReadAsync())
+            {
+                return new User
+                {
+                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                    Username = reader.GetString(reader.GetOrdinal("Username")),
+                    Email = reader.GetString(reader.GetOrdinal("Email")),
+                    Password = reader.GetString(reader.GetOrdinal("Password")),
+                    RoleId = reader.GetInt32(reader.GetOrdinal("RoleId")),
+                    RefreshToken = reader.GetString(reader.GetOrdinal("RefreshToken")),
+                    RefreshTokenExpiryTime = reader.GetDateTime(
+                        reader.GetOrdinal("RefreshTokenExpiryTime"))
+                };
+            }
+
+            return null;
         }
     }
 }
